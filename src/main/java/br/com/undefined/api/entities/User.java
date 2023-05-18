@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Table(name = "tb_und_user")
 @SequenceGenerator(name = "user", sequenceName = "SQ_TB_USER", allocationSize = 1)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 
     @Id
