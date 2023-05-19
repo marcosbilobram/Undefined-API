@@ -6,10 +6,12 @@ import br.com.undefined.api.entities.Product;
 import br.com.undefined.api.repositories.OrderRepository;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class OrderService {
 
     @Autowired

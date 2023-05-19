@@ -23,9 +23,11 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         return http
                 .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST, "/api/registrar").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/login").permitAll()
-                .anyRequest().authenticated()
+                //.requestMatchers(HttpMethod.POST, "/api/registrar").permitAll()
+                //.requestMatchers(HttpMethod.POST, "/api/login").permitAll()
+                .anyRequest()
+                //.authenticated()
+                .permitAll()
                 .and()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
