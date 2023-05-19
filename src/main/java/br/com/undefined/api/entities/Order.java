@@ -46,4 +46,13 @@ public class Order {
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
+    public Order(Double totalValue, Calendar date, Enum<OrderStatus> status,
+                 Client client, List<Product> products, Restaurant restaurant) {
+        this.totalValue = totalValue;
+        this.date = date;
+        this.status = status;
+        this.client = client;
+        this.products = products;
+        this.restaurant = restaurant;
+    }
 }

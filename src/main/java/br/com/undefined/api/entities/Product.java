@@ -44,4 +44,15 @@ public class Product {
     @ManyToMany(mappedBy = "products")
     private List<Order> orders;
 
+    public Product(String name, String description, String image, Double pricePerUnit,
+                   Integer quantity, List<Category> categories, Restaurant restaurant, List<Order> orders) {
+        this.name = name;
+        this.description = description;
+        this.image = image;
+        this.pricePerUnit = pricePerUnit;
+        this.quantity = quantity;
+        this.categories = categories;
+        this.restaurant = restaurant;
+        this.orders = orders;
+    }
 }

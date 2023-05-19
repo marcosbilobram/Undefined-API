@@ -1,7 +1,11 @@
 package br.com.undefined.api.repositories;
 
 import br.com.undefined.api.entities.Restaurant;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
+import java.util.Optional;
+
+@Repository
+public interface RestaurantRepository extends UserRepository<Restaurant> {
+    Optional<Restaurant> findByEmail(String email);
 }

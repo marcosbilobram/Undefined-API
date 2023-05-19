@@ -36,4 +36,14 @@ public class Category {
     )
     private List<Product> productList;
 
+    public Category(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    public Category(String name, String description, List<Product> productList) {
+        this.name = name;
+        this.description = description;
+        this.productList = productList;
+    }
 }

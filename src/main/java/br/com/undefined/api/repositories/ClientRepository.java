@@ -1,7 +1,13 @@
 package br.com.undefined.api.repositories;
 
 import br.com.undefined.api.entities.Client;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ClientRepository extends JpaRepository<Client, Long> {
+import java.util.Optional;
+
+@Repository
+public interface ClientRepository extends UserRepository<Client> {
+
+    Optional<Client> findByEmail(String email);
+
 }

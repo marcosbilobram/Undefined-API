@@ -1,9 +1,6 @@
 package br.com.undefined.api.dto;
 
-import br.com.undefined.api.entities.Client;
-import br.com.undefined.api.entities.OrderStatus;
-import br.com.undefined.api.entities.Product;
-import br.com.undefined.api.entities.Restaurant;
+import br.com.undefined.api.entities.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,5 +30,14 @@ public class OrderDTO {
     private List<Product> products;
 
     private Restaurant restaurant;
+
+    public OrderDTO(Order order) {
+        this.totalValue = order.getTotalValue();
+        this.date = order.getDate();
+        this.status = order.getStatus();
+        this.client = order.getClient();
+        this.products = order.getProducts();
+        this.restaurant = order.getRestaurant();
+    }
 
 }
