@@ -19,7 +19,7 @@ public class SecurityConfig {
     @Autowired
     private AuthorizationFilter authorizationFilter;
 
-    @Bean
+    /*@Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         return http
                 .authorizeHttpRequests()
@@ -45,6 +45,6 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
-    }
+    }*/
 
 }

@@ -35,8 +35,9 @@ public class Rating {
     private Integer stars;
     private String comment;
 
-    @ElementCollection
-    @CollectionTable(name = "tb_und_rating_answers", joinColumns = @JoinColumn(name = "tb_booking_room_id"), foreignKey = @ForeignKey(value = ConstraintMode.PROVIDER_DEFAULT))
+    //@ElementCollection(targetClass = Answer.class)
+    //@CollectionTable(name = "tb_und_rating_answers", joinColumns = @JoinColumn(name = "tb_booking_room_id"), foreignKey = @ForeignKey(value = ConstraintMode.PROVIDER_DEFAULT))
+    @OneToMany(targetEntity = Answer.class)
     private List<Answer> answers;
 
     @CreationTimestamp
@@ -66,10 +67,10 @@ public class Rating {
 
     public EntityModel<Rating> toEntityModel(){
         return EntityModel.of(
-                this,
-                linkTo(methodOn(RatingController.class).findById(id)).withSelfRel(),
-                linkTo(methodOn(RatingController.class).delete(id)).withRel("delete"),
-                linkTo(methodOn(ProductController.class).findAllProductRatings(Pageable.unpaged(), product.getId())).withRel("all")
+                null
+                //linkTo(methodOn(RatingController.class).findById(id)).withSelfRel(),
+                //linkTo(methodOn(RatingController.class).delete(id)).withRel("delete"),
+                //linkTo(methodOn(ProductController.class).findAllProductRatings(Pageable.unpaged(), product.getId())).withRel("all")
         );
     }
 

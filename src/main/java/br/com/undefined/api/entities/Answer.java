@@ -1,13 +1,15 @@
 package br.com.undefined.api.entities;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
+@Entity
+@Table(name = "tb_und_answer")
 public class Answer {
 
     @Id
@@ -16,6 +18,6 @@ public class Answer {
 
     private String body;
 
-    private Client author;
+    private String authorId;
 
 }

@@ -1,29 +1,22 @@
 package br.com.undefined.api.controllers;
 
-import java.net.URI;
-import java.util.Calendar;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import br.com.undefined.api.dto.ProductDTO;
 import br.com.undefined.api.dto.RatingDTO;
 import br.com.undefined.api.entities.Product;
 import br.com.undefined.api.entities.Rating;
-import br.com.undefined.api.repositories.RatingRepository;
 import br.com.undefined.api.services.ProductService;
 import br.com.undefined.api.services.RatingService;
 import jakarta.validation.Valid;
-import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
+import java.util.Calendar;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/products")
@@ -34,9 +27,6 @@ public class ProductController {
 
     @Autowired
     private RatingService ratingService;
-
-    @Autowired
-    private RatingRepository repository;
 
     @Autowired
     PagedResourcesAssembler<Object> assembler;
@@ -54,7 +44,7 @@ public class ProductController {
         return ResponseEntity.ok().body(new ProductDTO(prod));
     }
 
-    @PostMapping
+    @PostMapping(value = "/add")
     public ResponseEntity<Void> insert(@RequestBody @Valid ProductDTO productDTO) {
         Product prd = productService.fromDTO(productDTO);
         prd = productService.insert(prd);
@@ -70,7 +60,7 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "/{id}/del")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         productService.delete(id);
         return ResponseEntity.noContent().build();
@@ -90,13 +80,13 @@ public class ProductController {
         return ResponseEntity.ok().body(listDTO);
     }
 
-    @GetMapping(value = "/ratings/{id}")
+    /*@GetMapping(value = "/ratings/{id}")
     public PagedModel<EntityModel<Object>> findAllProductRatings(@ParameterObject @PageableDefault(size = 5) Pageable pageable, @PathVariable Long productId) {
-        Page<Rating> ratings = repository.findAll(pageable);
+        //Page<Rating> ratings = ratingService.findAll(pageable);
         //Page<RatingDTO> ratingsDTO = (Page<RatingDTO>) ratings.stream().map(rt -> new RatingDTO(rt)).collect(Collectors.toList());
 
         return assembler.toModel(ratings.map(Rating::toEntityModel));
-    }
+    }*/
 
     @PostMapping(value = "/{id}/ratings/add")
     public ResponseEntity<Void> addCommentToProduct(@RequestParam @Valid RatingDTO ratingDTO, @PathVariable Long id) {
@@ -105,4 +95,7 @@ public class ProductController {
         productService.AddNewRatingToProduct(rt, id);
         return null;
     }
+
+    //addAnswerToComment
+    //
 }

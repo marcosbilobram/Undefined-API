@@ -14,10 +14,6 @@ public class RatingController {
         return null;
     }
 
-    public ResponseEntity<Void> update(Rating tBody, Long id) {
-        return null;
-    }
-
     public ResponseEntity<Void> delete(Long id) {
         return null;
     }

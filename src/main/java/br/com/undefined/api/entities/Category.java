@@ -23,7 +23,7 @@ public class Category {
     private String description;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "tb_prod_categ",
+    @JoinTable(name = "tb_und_prod_categ",
             joinColumns =
             @JoinColumn(
                     name = "prod_id",

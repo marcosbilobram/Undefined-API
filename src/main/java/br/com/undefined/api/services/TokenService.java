@@ -45,7 +45,7 @@ public class TokenService {
         return new Token(token, "JWT", "Bearer");
     }
 
-    public User getValidateUser(String token) throws Throwable {
+    /*public User getValidateUser(String token) throws Throwable {
         Algorithm alg = Algorithm.HMAC256(secret);
         var email = JWT.require(alg)
                 .withIssuer("Undefined")
@@ -56,7 +56,7 @@ public class TokenService {
 
         return (User) userRepository.findByEmail(email)
                 .orElseThrow(() -> new JWTVerificationException("Usuario invalido"));
-    }
+    }*/
 
 
 
