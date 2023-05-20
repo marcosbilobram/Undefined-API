@@ -1,14 +1,26 @@
 package br.com.undefined.api.controllers;
 
 import java.net.URI;
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import br.com.undefined.api.dto.ProductDTO;
+import br.com.undefined.api.dto.RatingDTO;
 import br.com.undefined.api.entities.Product;
+import br.com.undefined.api.entities.Rating;
+import br.com.undefined.api.repositories.RatingRepository;
 import br.com.undefined.api.services.ProductService;
+import br.com.undefined.api.services.RatingService;
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -19,6 +31,15 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private RatingService ratingService;
+
+    @Autowired
+    private RatingRepository repository;
+
+    @Autowired
+    PagedResourcesAssembler<Object> assembler;
 
     @GetMapping
     public  ResponseEntity<List<ProductDTO>> findAll(){
@@ -67,5 +88,21 @@ public class ProductController {
         List<Product> list = productService.findProductsByCategoryName(categoryName);
         List<ProductDTO> listDTO = list.stream().map(x -> new ProductDTO(x.getName(), x.getDescription(), x.getImage(), x.getPricePerUnit(), x.getQuantity(), x.getRestaurant())).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
+    }
+
+    @GetMapping(value = "/ratings/{id}")
+    public PagedModel<EntityModel<Object>> findAllProductRatings(@ParameterObject @PageableDefault(size = 5) Pageable pageable, @PathVariable Long productId) {
+        Page<Rating> ratings = repository.findAll(pageable);
+        //Page<RatingDTO> ratingsDTO = (Page<RatingDTO>) ratings.stream().map(rt -> new RatingDTO(rt)).collect(Collectors.toList());
+
+        return assembler.toModel(ratings.map(Rating::toEntityModel));
+    }
+
+    @PostMapping(value = "/{id}/ratings/add")
+    public ResponseEntity<Void> addCommentToProduct(@RequestParam @Valid RatingDTO ratingDTO, @PathVariable Long id) {
+        ratingDTO.setDate(Calendar.getInstance());
+        Rating rt = ratingService.fromDTO(ratingDTO);
+        productService.AddNewRatingToProduct(rt, id);
+        return null;
     }
 }

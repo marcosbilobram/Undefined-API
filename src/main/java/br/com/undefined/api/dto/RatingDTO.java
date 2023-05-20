@@ -1,6 +1,8 @@
 package br.com.undefined.api.dto;
 
 import br.com.undefined.api.entities.Client;
+import br.com.undefined.api.entities.Product;
+import br.com.undefined.api.entities.Rating;
 import br.com.undefined.api.entities.Restaurant;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
@@ -30,4 +32,13 @@ public class RatingDTO {
 
     private Restaurant restaurant;
 
+    private Product product;
+
+    public RatingDTO(Rating rating) {
+        this.stars = rating.getStars();
+        this.comment = rating.getComment();
+        this.date = rating.getDate();
+        this.product = rating.getProduct();
+        this.client = rating.getClient();
+    }
 }

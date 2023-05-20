@@ -2,6 +2,7 @@ package br.com.undefined.api.services;
 
 import br.com.undefined.api.dto.ProductDTO;
 import br.com.undefined.api.entities.Product;
+import br.com.undefined.api.entities.Rating;
 import br.com.undefined.api.repositories.ProductRepository;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class ProductService {
 
     @Autowired
     private ProductRepository productRepo;
+
+    @Autowired
+    private RatingService ratingService;
 
     public List<Product> findAll(){
         return productRepo.findAll();
@@ -82,5 +86,15 @@ public class ProductService {
 
     public List<Product> findProductsByCategoryName(String categoryName){
         return productRepo.findByCategoriesName(categoryName);
+    }
+
+    public void AddNewRatingToProduct(Rating rating, Long product_id) {
+
+        Product prd = findById(product_id);
+        prd.getRatings().add(rating);
+        productRepo.save(prd);
+        rating.setProduct(prd);
+        rating.setRestaurant(prd.getRestaurant());
+        ratingService.insert(rating);
     }
 }

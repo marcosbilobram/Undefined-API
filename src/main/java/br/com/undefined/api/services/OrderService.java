@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static br.com.undefined.api.entities.OrderStatus.EM_PREPARO;
+
 @Service
 public class OrderService {
 
@@ -33,6 +35,7 @@ public class OrderService {
     public Order insert(Order order) {
         order.setTotalValue(calculateTotalValue(order.getProducts()));
         //checkIfIsPaid(order.getId())
+        order.setStatus(EM_PREPARO);
         return repository.save(order);
     }
 

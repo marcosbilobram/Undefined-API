@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -43,6 +44,9 @@ public class Product {
 
     @ManyToMany(mappedBy = "products")
     private List<Order> orders;
+
+    @OneToMany(mappedBy = "product")
+    private List<Rating> ratings;
 
     public Product(String name, String description, String image, Double pricePerUnit,
                    Integer quantity, List<Category> categories, Restaurant restaurant, List<Order> orders) {
