@@ -20,4 +20,7 @@ public class Answer {
 
     private String authorId;
 
+    @ManyToOne
+    private Rating rating;
+
 }

@@ -1,11 +1,17 @@
 package br.com.undefined.api.entities;
 
+import br.com.undefined.api.controllers.RestaurantController;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.EntityModel;
 
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Entity
 @NoArgsConstructor
@@ -32,4 +38,18 @@ public class Restaurant extends User{
     @OneToMany
     @JoinColumn(name = "restaurant_id")
     private List<Product> products;
+
+    public Restaurant(String restaurantName, Phone phone) {
+        this.restaurantName = restaurantName;
+        this.phone = phone;
+    }
+
+    public EntityModel<Restaurant> toEntityModel(){
+        return EntityModel.of(
+                this,
+                linkTo(methodOn(RestaurantController.class).findById(this.getId())).withSelfRel(),
+                linkTo(methodOn(RestaurantController.class).delete(this.getId())).withRel("delete"),
+                linkTo(methodOn(RestaurantController.class).findAll( Pageable.unpaged())).withRel("all")
+        );
+    }
 }

@@ -1,9 +1,6 @@
 package br.com.undefined.api.dto;
 
-import br.com.undefined.api.entities.Order;
-import br.com.undefined.api.entities.Phone;
-import br.com.undefined.api.entities.Product;
-import br.com.undefined.api.entities.Rating;
+import br.com.undefined.api.entities.*;
 import jakarta.persistence.Embedded;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,5 +27,11 @@ public class RestaurantDTO {
     private List<Rating> ratings;
 
     private List<Product> products;
+
+    public RestaurantDTO(Restaurant restaurant) {
+        this.restaurantName = restaurant.getRestaurantName();
+        this.logo = restaurant.getLogo();
+        this.phone = restaurant.getPhone();
+    }
 
 }

@@ -37,7 +37,7 @@ public class Rating {
 
     //@ElementCollection(targetClass = Answer.class)
     //@CollectionTable(name = "tb_und_rating_answers", joinColumns = @JoinColumn(name = "tb_booking_room_id"), foreignKey = @ForeignKey(value = ConstraintMode.PROVIDER_DEFAULT))
-    @OneToMany(targetEntity = Answer.class)
+    @OneToMany(mappedBy = "rating")
     private List<Answer> answers;
 
     @CreationTimestamp
