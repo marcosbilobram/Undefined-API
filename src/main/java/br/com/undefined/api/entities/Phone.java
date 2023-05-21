@@ -12,12 +12,12 @@ import lombok.NoArgsConstructor;
 @Data
 public class Phone {
 
-    @Column(nullable = false, length = 3)
+    @Column(length = 3)
     private Integer DDI;
 
-    @Column(nullable = false, length = 2)
+    @Column(length = 2)
     private Integer DDD;
 
-    @Column(nullable = false, length = 12)
+    @Column(length = 12)
     private String phoneNumber;
 }

@@ -38,7 +38,7 @@ public class ProductController {
     }
 
     @PostMapping(value = "/add")
-    public ResponseEntity<Void> insert(@RequestBody @Valid ProductDTO productDTO) {
+    public ResponseEntity<Void> insert(@RequestBody ProductDTO productDTO) {
         Product prd = productService.fromDTO(productDTO);
         prd = productService.insert(prd);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(prd.getId()).toUri();

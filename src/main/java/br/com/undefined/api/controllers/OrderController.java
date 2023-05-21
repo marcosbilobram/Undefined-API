@@ -41,6 +41,7 @@ public class OrderController {
         return ResponseEntity.created(uri).build();
     }
 
+    @PutMapping("/{id}/update")
     public ResponseEntity<Void> update(@RequestBody OrderDTO orderDTO, Long id) {
         return null;
     }

@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -38,7 +37,7 @@ public class Product {
     @ManyToMany(mappedBy = "productList", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     private List<Category> categories;
 
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 

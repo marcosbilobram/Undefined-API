@@ -7,9 +7,6 @@ import br.com.undefined.api.entities.Rating;
 import br.com.undefined.api.repositories.ClientRepository;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ClientService implements UserDetailsService {
+public class ClientService /*implements UserDetailsService*/ {
 
     @Autowired
     private ClientRepository clientRepository;
@@ -41,11 +38,11 @@ public class ClientService implements UserDetailsService {
         return clientRepository.save(clt);
     }
 
-    @Override
+    /*@Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return clientRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Cliente não encontrado"));
-    }
+    }*/
 
     public void dataUpdate(Client cltToAtt, Client client) {
         cltToAtt.setClientName(client.getClientName());
