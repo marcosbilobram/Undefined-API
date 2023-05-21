@@ -11,6 +11,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.util.Calendar;
 import java.util.List;
 
+@AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
