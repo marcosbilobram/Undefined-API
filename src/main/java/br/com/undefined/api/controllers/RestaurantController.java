@@ -1,7 +1,10 @@
 package br.com.undefined.api.controllers;
 
+import br.com.undefined.api.dto.ProductDTO;
 import br.com.undefined.api.dto.RestaurantDTO;
+import br.com.undefined.api.entities.Product;
 import br.com.undefined.api.entities.Restaurant;
+import br.com.undefined.api.services.ProductService;
 import br.com.undefined.api.services.RestaurantService;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +30,10 @@ public class RestaurantController {
     private RestaurantService restaurantService;
 
     @Autowired
-    PagedResourcesAssembler<Restaurant> assembler;
+    private ProductService productService;
+
+    @Autowired
+    private PagedResourcesAssembler<Restaurant> assembler;
 
     @GetMapping(value = "/all")
     public PagedModel<EntityModel<Restaurant>> findAll(@ParameterObject @PageableDefault(size = 5) Pageable pageable) {
@@ -67,6 +73,13 @@ public class RestaurantController {
     public ResponseEntity<List<RestaurantDTO>> findByName(@RequestParam("name") String name){
         List<Restaurant> list = restaurantService.findByName(name);
         List<RestaurantDTO> listDTO = list.stream().map(RestaurantDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
+    }
+
+    @GetMapping(value = "/products/all")
+    public  ResponseEntity<List<ProductDTO>> findAllRestaurantProductsByRestaurantId(){
+        List<Product> prod = productService.findAll();
+        List<ProductDTO> listDTO = prod.stream().map(x -> new ProductDTO(x)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
     }
 

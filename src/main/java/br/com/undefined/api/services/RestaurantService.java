@@ -1,14 +1,15 @@
 package br.com.undefined.api.services;
 
-import br.com.undefined.api.dto.OrderDTO;
 import br.com.undefined.api.dto.RestaurantDTO;
-import br.com.undefined.api.entities.Order;
 import br.com.undefined.api.entities.Restaurant;
 import br.com.undefined.api.repositories.RestaurantRepository;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.Optional;
 
 
 @Service
-public class RestaurantService {
+public class RestaurantService implements UserDetailsService {
 
     @Autowired
     private RestaurantRepository repository;
@@ -34,18 +35,18 @@ public class RestaurantService {
         repository.deleteById(id);
     }
 
-    public Restaurant insert(Restaurant order) {
-        return repository.save(order);
+    public Restaurant insert(Restaurant restaurant) {
+        return repository.save(restaurant);
     }
 
-    public Restaurant update(Restaurant product) {
-        Restaurant ord = findById(product.getId());
-        dataUpdate(ord, product);
+    public Restaurant update(Restaurant restaurant) {
+        Restaurant ord = findById(restaurant.getId());
+        dataUpdate(ord, restaurant);
         return repository.save(ord);
     }
 
     public List<Restaurant> findByName(String name) {
-        return repository.findByNameContaining(name);
+        return repository.findByRestaurantNameContaining(name);
     }
 
     public void dataUpdate(Restaurant restToAtt, Restaurant restaurant) {
@@ -61,4 +62,9 @@ public class RestaurantService {
         );
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return repository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Cliente não encontrado"));
+    }
 }

@@ -1,5 +1,6 @@
 package br.com.undefined.api.repositories;
 
+import br.com.undefined.api.entities.Product;
 import br.com.undefined.api.entities.Restaurant;
 import br.com.undefined.api.entities.User;
 import org.springframework.data.domain.Page;
@@ -15,5 +16,8 @@ public interface RestaurantRepository extends UserRepository<Restaurant> {
 
     Page<Restaurant> findAll(Pageable pageable);
 
-    List<Restaurant> findByNameContaining(String name);
+    List<Restaurant> findByRestaurantNameContaining(String name);
+
+    //List<Product> findAllProductsByRestaurantId(Long id);
+
 }

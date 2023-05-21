@@ -29,14 +29,7 @@ public class ProductController {
     private RatingService ratingService;
 
     @Autowired
-    PagedResourcesAssembler<Object> assembler;
-
-    @GetMapping
-    public  ResponseEntity<List<ProductDTO>> findAll(){
-        List<Product> prod = productService.findAll();
-        List<ProductDTO> listDTO = prod.stream().map(x -> new ProductDTO(x)).collect(Collectors.toList());
-        return ResponseEntity.ok().body(listDTO);
-    }
+    private PagedResourcesAssembler<Object> assembler;
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<ProductDTO> findById(@PathVariable Long id){

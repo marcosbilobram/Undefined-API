@@ -25,4 +25,9 @@ public class Client extends User {
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     private List<Rating> ratings;
+
+    public Client(String clientName, Phone phone) {
+        this.clientName = clientName;
+        this.phone = phone;
+    }
 }
