@@ -1,7 +1,5 @@
 package br.com.undefined.api.entities;
 
-import br.com.undefined.api.controllers.ProductController;
-import br.com.undefined.api.controllers.RatingController;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
@@ -10,14 +8,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.EntityModel;
 
 import java.util.Calendar;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Entity
 @NoArgsConstructor

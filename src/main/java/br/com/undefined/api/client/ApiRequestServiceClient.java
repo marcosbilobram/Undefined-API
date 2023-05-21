@@ -9,6 +9,8 @@ public class ApiRequestServiceClient {
 
     private final RestTemplate restTemplate;
 
+    //Esse client será responsável pela conexão com o micro serviço(a ser criado) de requisições e
+    //este método é responsável pelo retorno das requisições.
     public ApiRequestServiceClient(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }

@@ -18,6 +18,6 @@ public interface RestaurantRepository extends UserRepository<Restaurant> {
 
     List<Restaurant> findByRestaurantNameContaining(String name);
 
-    //List<Product> findAllProductsByRestaurantId(Long id);
+    List<Product> getAllById(Long id);
 
 }

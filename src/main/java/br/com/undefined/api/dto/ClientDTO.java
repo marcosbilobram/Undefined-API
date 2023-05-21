@@ -1,5 +1,6 @@
 package br.com.undefined.api.dto;
 
+import br.com.undefined.api.entities.Client;
 import br.com.undefined.api.entities.Order;
 import br.com.undefined.api.entities.Phone;
 import br.com.undefined.api.entities.Rating;
@@ -25,5 +26,12 @@ public class ClientDTO {
     private List<Order> orders;
 
     private List<Rating> ratings;
+
+    public ClientDTO(Client client) {
+        this.clientName = client.getClientName();
+        this.phone = client.getPhone();
+        this.orders = client.getOrders();
+        this.ratings = client.getRatings();
+    }
 
 }

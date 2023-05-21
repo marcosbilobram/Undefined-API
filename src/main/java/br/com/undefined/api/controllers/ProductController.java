@@ -1,7 +1,9 @@
 package br.com.undefined.api.controllers;
 
+import br.com.undefined.api.dto.AnswerDTO;
 import br.com.undefined.api.dto.ProductDTO;
 import br.com.undefined.api.dto.RatingDTO;
+import br.com.undefined.api.entities.Answer;
 import br.com.undefined.api.entities.Product;
 import br.com.undefined.api.entities.Rating;
 import br.com.undefined.api.services.ProductService;
@@ -90,5 +92,9 @@ public class ProductController {
     }
 
     //addAnswerToComment
-    //
+    @PostMapping(value = "/{product_id}/ratings/{id}")
+    public ResponseEntity<Void> addAnswerToComment(@PathVariable("product_id") Long productId, @ RequestBody Answer answer, @PathVariable("id") Long id){
+        ratingService.insertAnswer(answer, id);
+        return ResponseEntity.ok().build();
+    }
 }

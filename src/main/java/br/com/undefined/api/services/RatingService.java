@@ -2,6 +2,7 @@ package br.com.undefined.api.services;
 
 import br.com.undefined.api.dto.OrderDTO;
 import br.com.undefined.api.dto.RatingDTO;
+import br.com.undefined.api.entities.Answer;
 import br.com.undefined.api.entities.Order;
 import br.com.undefined.api.entities.Product;
 import br.com.undefined.api.entities.Rating;
@@ -35,6 +36,13 @@ public class RatingService {
 
     public Rating insert(Rating rating) {
         return repository.save(rating);
+    }
+
+    public void insertAnswer(Answer answer, Long id){
+        Rating rt = findById(id);
+        rt.getAnswers().add(answer);
+        repository.save(rt);
+
     }
 
     public Rating fromDTO(RatingDTO ratingDTO){

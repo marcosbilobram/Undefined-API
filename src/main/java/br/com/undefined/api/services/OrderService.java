@@ -1,6 +1,8 @@
 package br.com.undefined.api.services;
 
+import br.com.undefined.api.dto.OrderCreationDTO;
 import br.com.undefined.api.dto.OrderDTO;
+import br.com.undefined.api.entities.Client;
 import br.com.undefined.api.entities.Order;
 import br.com.undefined.api.entities.Product;
 import br.com.undefined.api.repositories.OrderRepository;
@@ -8,8 +10,10 @@ import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static br.com.undefined.api.entities.OrderStatus.EM_PREPARO;
 
@@ -18,6 +22,15 @@ public class OrderService {
 
     @Autowired
     private OrderRepository repository;
+
+    @Autowired
+    private ProductService productService;
+
+    @Autowired
+    private RestaurantService restaurantService;
+
+    @Autowired
+    private ClientService clientService;
 
     public List<Order> findAll(){
         return repository.findAll();
@@ -36,6 +49,19 @@ public class OrderService {
         order.setTotalValue(calculateTotalValue(order.getProducts()));
         //checkIfIsPaid(order.getId())
         order.setStatus(EM_PREPARO);
+        return repository.save(order);
+    }
+
+    public Order insertWithIDs(OrderCreationDTO dto) {
+        Order order = new Order();
+
+        order.setTotalValue(dto.getTotalValue());
+        order.setDate(dto.getDate());
+        order.setStatus(EM_PREPARO);
+        order.setClient(clientService.findById(dto.getClientId()));
+        order.setRestaurant(restaurantService.findById(dto.getRestaurantId()));
+        order.setProducts(dto.getProductsId().stream().map(id -> productService.findById(id)).collect(Collectors.toList()));
+
         return repository.save(order);
     }
 

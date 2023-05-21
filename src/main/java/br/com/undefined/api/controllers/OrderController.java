@@ -1,5 +1,6 @@
 package br.com.undefined.api.controllers;
 
+import br.com.undefined.api.dto.OrderCreationDTO;
 import br.com.undefined.api.dto.OrderDTO;
 import br.com.undefined.api.entities.Order;
 import br.com.undefined.api.services.OrderService;
@@ -41,14 +42,17 @@ public class OrderController {
         return ResponseEntity.created(uri).build();
     }
 
-    @PutMapping("/{id}/update")
-    public ResponseEntity<Void> update(@RequestBody OrderDTO orderDTO, Long id) {
-        return null;
-    }
-
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping(value = "/add/ids")
+    public ResponseEntity<Void> createWithIds(OrderCreationDTO dto) {
+        service.insertWithIDs(dto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(service.findAll().size()).toUri();
+        return ResponseEntity.created(uri).build();
+    }
+
 }
