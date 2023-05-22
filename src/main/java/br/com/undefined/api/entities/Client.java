@@ -2,6 +2,7 @@ package br.com.undefined.api.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder(builderMethodName = "clientBuilder")
 @Table(name = "tb_und_client")
 public class Client extends User {
 

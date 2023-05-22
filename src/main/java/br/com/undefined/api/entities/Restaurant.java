@@ -3,6 +3,7 @@ package br.com.undefined.api.entities;
 import br.com.undefined.api.controllers.RestaurantController;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -17,9 +18,11 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder(builderMethodName = "restaurantBuilder")
 @Table(name = "tb_und_restaurant")
 public class Restaurant extends User{
 
+    @Column(length = 25)
     private String restaurantName;
 
     private String logo;

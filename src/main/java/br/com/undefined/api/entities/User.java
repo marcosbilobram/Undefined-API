@@ -13,7 +13,6 @@ import java.util.Collection;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Builder
 @Table(name = "tb_und_user")
 @SequenceGenerator(name = "user", sequenceName = "SQ_TB_USER", allocationSize = 1)
 @Inheritance(strategy = InheritanceType.JOINED)

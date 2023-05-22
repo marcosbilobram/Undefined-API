@@ -27,8 +27,10 @@ public class Rating {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Size(min = 1, max = 5)
+    @Column(nullable = false)
     private Integer stars;
+
+    @Column(length = 55)
     private String comment;
 
     //@ElementCollection(targetClass = Answer.class)
