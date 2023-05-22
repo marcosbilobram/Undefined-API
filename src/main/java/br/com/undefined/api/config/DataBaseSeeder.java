@@ -10,6 +10,8 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
+import static br.com.undefined.api.entities.OrderStatus.EM_PREPARO;
+
 @Configuration
 public class DataBaseSeeder implements CommandLineRunner {
 
@@ -70,6 +72,12 @@ public class DataBaseSeeder implements CommandLineRunner {
         product.setRatings(List.of(rating));
         productRepository.save(product);
         productRepository.flush();
+
+        Order order = Order.builder().client(client).restaurant(restaurant).date(Calendar.getInstance())
+                .status(EM_PREPARO).totalValue(product.getPricePerUnit() + product2.getPricePerUnit())
+                .products(List.of(product, product2)).build();
+        orderRepository.save(order);
+        orderRepository.flush();
 
     }
 }
