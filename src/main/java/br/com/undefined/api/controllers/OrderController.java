@@ -49,7 +49,7 @@ public class OrderController {
     }
 
     @PostMapping(value = "/add/ids")
-    public ResponseEntity<Void> createWithIds(OrderCreationDTO dto) {
+    public ResponseEntity<Void> createWithIds(@RequestBody @Valid OrderCreationDTO dto) {
         service.insertWithIDs(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(service.findAll().size()).toUri();
         return ResponseEntity.created(uri).build();
