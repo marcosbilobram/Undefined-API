@@ -18,10 +18,7 @@ public class DocumentationConfig {
                         .description("API de comércio de restaurantes em shopping")
                         .contact(new Contact().name("Marcos Bilobram")
                                 .email("marcosbilobram@hotmail.com")
-                                .url("https://www.linkedin.com/in/marcosbilobram/")
-                                .url("https://www.linkedin.com/in/gsrafaela/"))
-                );
-
+                                .url("https://www.linkedin.com/in/marcosbilobram/")));
     }
 
 }
